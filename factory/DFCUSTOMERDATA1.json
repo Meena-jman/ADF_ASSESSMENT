@@ -1,0 +1,9 @@
+{
+	"name": "DFCUSTOMERDATA1",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "13599f3e-e281-4d5c-a804-0eaa2ee885d7",
+		"tenantId": "2800c0a0-70e9-49be-8733-faeaa6aced99"
+	}
+}

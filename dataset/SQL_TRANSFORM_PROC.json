@@ -1,0 +1,17 @@
+{
+	"name": "SQL_TRANSFORM_PROC",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQL_STORE",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "prod_schema",
+			"table": "SALES_DETAILS_DAY1"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
