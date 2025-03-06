@@ -1,0 +1,25 @@
+{
+	"name": "SALES_TRIGGER",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "SALES_DATA",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 20,
+				"startTime": "2025-03-07T18:00:00",
+				"endTime": "2025-03-07T15:30:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}
