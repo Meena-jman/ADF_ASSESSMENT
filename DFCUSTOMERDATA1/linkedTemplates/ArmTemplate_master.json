@@ -1,0 +1,118 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "DFCUSTOMERDATA1"
+		},
+		"LS_ABLB_FILESTORE_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_ABLB_FILESTORE'"
+		},
+		"LS_ABLB_FILES_CSV_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_ABLB_FILES_CSV'"
+		},
+		"LS_ABLB_ORDERS_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_ABLB_ORDERS'"
+		},
+		"LS_SQL_STORE_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_SQL_STORE'"
+		},
+		"LS_RESTAPI_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://jsonplaceholder.typicode.com/users"
+		},
+		"LS_SQL_STORE_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "mysqlserver1adf1.database.windows.net"
+		},
+		"LS_SQL_STORE_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "MYSQL_SAMPLE"
+		},
+		"LS_SQL_STORE_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "Meena"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "DFCUSTOMERDATA1_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LS_ABLB_FILESTORE_connectionString": {
+						"value": "[parameters('LS_ABLB_FILESTORE_connectionString')]"
+					},
+					"LS_ABLB_FILES_CSV_connectionString": {
+						"value": "[parameters('LS_ABLB_FILES_CSV_connectionString')]"
+					},
+					"LS_ABLB_ORDERS_connectionString": {
+						"value": "[parameters('LS_ABLB_ORDERS_connectionString')]"
+					},
+					"LS_SQL_STORE_password": {
+						"value": "[parameters('LS_SQL_STORE_password')]"
+					},
+					"LS_RESTAPI_properties_typeProperties_url": {
+						"value": "[parameters('LS_RESTAPI_properties_typeProperties_url')]"
+					},
+					"LS_SQL_STORE_properties_typeProperties_server": {
+						"value": "[parameters('LS_SQL_STORE_properties_typeProperties_server')]"
+					},
+					"LS_SQL_STORE_properties_typeProperties_database": {
+						"value": "[parameters('LS_SQL_STORE_properties_typeProperties_database')]"
+					},
+					"LS_SQL_STORE_properties_typeProperties_userName": {
+						"value": "[parameters('LS_SQL_STORE_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "DFCUSTOMERDATA1_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'DFCUSTOMERDATA1_ArmTemplate_0')]"
+			]
+		}
+	]
+}

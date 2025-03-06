@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "DFCUSTOMERDATA1"
+		},
+		"LS_ABLB_FILESTORE_connectionString": {
+			"value": ""
+		},
+		"LS_ABLB_FILES_CSV_connectionString": {
+			"value": ""
+		},
+		"LS_ABLB_ORDERS_connectionString": {
+			"value": ""
+		},
+		"LS_SQL_STORE_password": {
+			"value": ""
+		},
+		"LS_RESTAPI_properties_typeProperties_url": {
+			"value": "https://jsonplaceholder.typicode.com/users"
+		},
+		"LS_SQL_STORE_properties_typeProperties_server": {
+			"value": "mysqlserver1adf1.database.windows.net"
+		},
+		"LS_SQL_STORE_properties_typeProperties_database": {
+			"value": "MYSQL_SAMPLE"
+		},
+		"LS_SQL_STORE_properties_typeProperties_userName": {
+			"value": "Meena"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
