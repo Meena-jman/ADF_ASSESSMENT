@@ -1,12 +1,12 @@
 {
-	"name": "SQL_TRANSFORM_PROC",
+	"name": "SQL_PROC_STORE",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_SQL_STORE",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"procedure_name": {
+			"procedure_name_to_store": {
 				"type": "String"
 			}
 		},
@@ -14,12 +14,11 @@
 		"type": "AzureSqlTable",
 		"schema": [],
 		"typeProperties": {
-			"schema": "dbo",
+			"schema": "prod_schema",
 			"table": {
-				"value": "@dataset().procedure_name",
+				"value": "@dataset().procedure_name_to_store",
 				"type": "Expression"
 			}
 		}
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }

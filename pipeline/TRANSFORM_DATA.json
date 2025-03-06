@@ -3,53 +3,82 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "ORDER_TRANSFORM",
-				"type": "Copy",
+				"name": "PROCEDURE_STORING",
+				"type": "ForEach",
 				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource",
-						"sqlReaderStoredProcedureName": "[dbo].[SALESDETAILS1]",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
+					"items": {
+						"value": "@variables('procedure')",
+						"type": "Expression"
 					},
-					"sink": {
-						"type": "AzureSqlSink",
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false,
-						"tableOption": "autoCreate",
-						"disableMetricsCollection": false
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
+					"activities": [
+						{
+							"name": "ORDER_TRANSFORM",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"sqlReaderStoredProcedureName": {
+										"value": "@item()",
+										"type": "Expression"
+									},
+									"queryTimeout": "02:00:00",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "AzureSqlSink",
+									"writeBehavior": "insert",
+									"sqlWriterUseTableLock": false,
+									"tableOption": "autoCreate",
+									"disableMetricsCollection": false
+								},
+								"enableStaging": false,
+								"translator": {
+									"type": "TabularTranslator",
+									"typeConversion": true,
+									"typeConversionSettings": {
+										"allowDataTruncation": true,
+										"treatBooleanAsNumber": false
+									}
+								}
+							},
+							"inputs": [
+								{
+									"referenceName": "SQL_TRANSFORM_PROC",
+									"type": "DatasetReference",
+									"parameters": {
+										"procedure_name": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "SQL_PROC_STORE",
+									"type": "DatasetReference",
+									"parameters": {
+										"procedure_name_to_store": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							]
 						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "SQL_TRANSFORM_PROC",
-						"type": "DatasetReference"
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "SQL_TRANSFORM_PROC",
-						"type": "DatasetReference"
-					}
-				]
+					]
+				}
 			}
 		],
 		"variables": {
@@ -57,10 +86,10 @@
 				"type": "Array",
 				"defaultValue": [
 					"SALESDETAILS1",
-					"SALESDETAILS2",
-					"SALESDETAILS3",
-					"SALESDETAILS4",
-					"SALESDETAILS5"
+					"SALESDETAILSDAY2",
+					"SALESDETAILSDAY3",
+					"SALESDETAILSDAY4",
+					"SALESDETAILSDAY5"
 				]
 			}
 		},
